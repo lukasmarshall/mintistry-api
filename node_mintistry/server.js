@@ -25,7 +25,7 @@ http.createServer(function (req, res) {
   handleRequest(req, res)
   //print the request to the console.
   console.log(req.url);
-}).listen(1337, '127.0.0.1');
+}).listen(80, '127.0.0.1');
 
 
 console.log('Server running at http://127.0.0.1:1337/');
