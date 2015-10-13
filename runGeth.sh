@@ -1,0 +1,1 @@
+geth --rpc --rpcaddr "localhost" --rpcport "8545" --rpcapi "db,eth,net,web3,personal,admin,debug,miner"
