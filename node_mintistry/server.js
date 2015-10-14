@@ -20,15 +20,17 @@ var db;
 result = web3.setProvider(new web3.providers.HttpProvider('http://127.0.0.1:8545'));
 console.log('Ethereum Connected');
 
+var port = 1337;
+var ip_address = '119.81.254.126';
 //start node server
 http.createServer(function (req, res) {
   handleRequest(req, res)
   //print the request to the console.
   console.log(req.url);
-}).listen(1337, '119.81.254.126');
+}).listen(port, ip_address);
 
 
-console.log('Server running at http://127.0.0.1:80/');
+console.log('Server running at '+ip_address+'at port '+port);
 
 function handleRequest(req, res){
   //gets request params and converts them to a json object..
