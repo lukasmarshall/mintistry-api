@@ -153,6 +153,47 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/InternalServerError'
+  /activate:
+    post:
+      summary: Top Up Ethereum Account
+      description: "In order to send or receive cryptocurrency on the ethereum blockchain, users ust pay a tiny fee in the form of a cryptocurrency called ether. Mintistry takes care of all this background stuff for you, pays your fees and ensures that your accounts are topped up with ether after every transaction. When you activate an account, Mintistry simply places enough ether in that account to allow it to send a transaction. Subsequently, after every transaction, Mintistry will continue to top up that account with enough ether for 1-2 transactions per block (approx. 20 seconds)."
+      parameters:
+        - name: api_key
+          in: formData
+          description: API Key supplied by Mintistry
+          required: true
+          type: string
+          format: string
+        - name: account_addr
+          in: formData
+          description: "Ethereum address of the account to activate. (created with /newAddress)"
+          required: true
+          type: string
+          format: string
+      responses:
+        '200':
+          description: 'JSON object with details of response.'
+          schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  description: 'True if mintistry was able create a transaction to top up the account.'
+                message:
+                  type: string
+                  description: 'A string containing information about the status of the request and hints for further use.'
+                sender_addr:
+                  type: string
+                  description: "Ethereum address of account to activate. (created with /newAddress)"
+
+        '422':
+          description: Unprocessable Entity Error
+          schema:
+            $ref: '#/definitions/UnprocessableEntityError'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/InternalServerError'
   /topUp:
     post:
       summary: Top Up Ethereum Account

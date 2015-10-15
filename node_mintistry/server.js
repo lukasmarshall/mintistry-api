@@ -68,6 +68,8 @@ function handleRequest(req, res){
     require('./handlers/getBalance.js').handle(req, res);
   }else if(req.url.match('^/topUp')){
     require('./handlers/topUp.js').handle(req, res);
+  }else if(req.url.match('^/activate')){
+    require('./handlers/activate.js').handle(req, res);
   }else{
     require('./handlers/base.js').handle(req, res);
   }
