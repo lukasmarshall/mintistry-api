@@ -33,13 +33,13 @@ function handle(req, res){
       if (!hash){
         response = {
           success : false,
-          message : "The account already has enough ether.",
+          message : "The account already has enough ether to be considered active. Transactions will work and Mintistry will keep this account topped up.",
           account_addr : params['account_addr'],
         }
       }else{
         response = {
           success : true,
-          message : "Successfully topped up account. Funds should appear within 30 seconds.",
+          message : "Successfully activated account. Funds should appear within 1 block ie. 20-30 seconds.",
           account_addr : params['account_addr'],
         }
       }
