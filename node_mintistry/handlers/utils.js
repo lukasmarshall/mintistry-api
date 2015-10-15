@@ -71,9 +71,11 @@ function topUp(address, callback){
       console.log('amount: '+ amount);
       console.log('amount required: '+ amountRequired)
       if(amountRequired > 0){
-        web3.eth.sendTransaction({from: web3.eth.coinbase, to: address, value: (amount - balance)}, callback);
+        web3.eth.sendTransaction({from: web3.eth.coinbase, to: address, value: amountRequired}, callback);
+        console.log('transaction sent to top up account');
       }else{
-        callback(error);
+        console.log('account does not need topping up');
+        callback('account does not need topping up');
       }
     }else{
       callback(error);

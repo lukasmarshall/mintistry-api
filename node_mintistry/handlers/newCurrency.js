@@ -87,7 +87,7 @@ function handle(req, res, db){
       res.end();
       console.log("Contract transaction sent: TransactionHash: " + contract.transactionHash + " waiting to be mined...");
 
-      utils.topUp(params['issuer_addr'], console.log)
+      utils.topUp(params['issuer_addr'], console.log);
     }else{
       utils.internalServerError(res, error);
     }
