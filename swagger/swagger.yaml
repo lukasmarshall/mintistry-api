@@ -264,7 +264,7 @@ paths:
   /getBalance:
     post:
       summary: Get Balance
-      description: "Returns the balance of a given account in a given coin. Allows you to check the balance of any account in a custom cryptocurrency, provided it complies with teh metacoin API. (all Mintistry coins comply with the metacoin standard.)"
+      description: "Returns the balance of a given account in a given coin. Allows you to check the balance of any account in a custom cryptocurrency, provided it complies with the metacoin API. (all Mintistry coins comply with the metacoin standard.)"
       parameters:
         - name: api_key
           in: formData

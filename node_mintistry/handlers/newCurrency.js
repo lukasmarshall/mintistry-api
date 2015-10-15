@@ -46,7 +46,6 @@ function handle(req, res, db){
     }
   }
 
-
   function deployContract(error, contractCompiled){
     if(!error){
       //define the contract object
