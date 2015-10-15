@@ -51,7 +51,7 @@ function handle(req, res, db){
     if(!error){
       //define the contract object
       console.log(contractCompiled);
-      var supply = 9000;
+      var supply = parseInt(params['starting_amount']);
       ContractObject = web3.eth.contract(contractCompiled.customCoin.info.abiDefinition);
       var issuer = params['issuer_addr'];
       var coinName = params['coin_name'];
