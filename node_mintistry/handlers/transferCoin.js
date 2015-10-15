@@ -36,17 +36,18 @@ function handle(req, res){
     var transaction = {
       from : params['sender_addr'],
     }
+
     contract.send.sendTransaction(params['receiver_addr'], parseInt(params['amount']), params['sender_addr'] ,transaction, generateResponse);
   }
 
   function generateResponse(error, success){
     if(!error){
       console.log('callback returned: '+success);
-
       if(success == 1){
         response = {
           success : true,
           message : "Successfully transferred coin.",
+          amount: parseInt(params['amount']),
           sender_addr : params['account_addr'],
           receiver_addr : params['receiver_addr'],
           coin_addr : params['coin_addr'],
@@ -55,6 +56,7 @@ function handle(req, res){
         response = {
           success : false,
           message : "Could not transfer coin. Ensure account balances are sufficient.",
+          amount: parseInt(params['amount']),
           sender_addr : params['account_addr'],
           receiver_addr : params['receiver_addr'],
           coin_addr : params['coin_addr'],
