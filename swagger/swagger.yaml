@@ -296,6 +296,9 @@ paths:
                 account_addr:
                   type: string
                   description:  "Address of the account to check the balance of. (created with /newAddress)"
+                amount:
+                  type: integer
+                  description:  "Amount of coin transferred in base units."
                 coin_addr:
                   type: string
                   description: "Address of the coin to check the balance of."
