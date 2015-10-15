@@ -4,7 +4,7 @@ var url = require("url");
 var utils = require('./utils.js');
 var mongoose = require('mongoose');
 var fs = require('fs');
-var sys = require('sys')
+var sys = require('sys');
 var exec = require('child_process').exec;
 var contractFactory = require('contractFactory');
 var customAuth = require('customAuth');
@@ -25,9 +25,9 @@ function handle(req, res, db){
   function validateRequest(error, parameters){
     params = parameters;
     if(!params['api_key'] || !params['issuer_addr'] || !params['starting_amount'] || !params['coin_name']){ //make sure the corract parameters are present
-      utils.unprocessableEntityError(res, "Required parameters not supplied. Requires api_key, issuer_addr, starting_amount, coin_name.")
+      utils.unprocessableEntityError(res, "Required parameters not supplied. Requires api_key, issuer_addr, starting_amount, coin_name.");
     } else if(!utils.verify_key(params['api_key'])){ //verify the api key
-      utils.unprocessableEntityError(res, "API Key is invalid.")
+      utils.unprocessableEntityError(res, "API Key is invalid.");
     }else{
       start();
     }
@@ -69,7 +69,7 @@ function handle(req, res, db){
       );
 
     }else{
-      utils.internalServerError(res, error)
+      utils.internalServerError(res, error);
     }
   }
 
@@ -83,7 +83,7 @@ function handle(req, res, db){
         transaction_hash : contract.transactionHash
       }
       res.writeHead(200, {'Content-Type': 'application/json'});
-      res.write(JSON.stringify(response));
+      res.write( JSON.stringify(response) );
       res.end();
       console.log("Contract transaction sent: TransactionHash: " + contract.transactionHash + " waiting to be mined...");
 
