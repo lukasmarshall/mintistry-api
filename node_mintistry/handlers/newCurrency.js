@@ -67,8 +67,6 @@ function handle(req, res, db){
         },
         contractSubmitted //note that this callback gets called twice - once when it's submitted and again when it's mined.
       );
-
-
     }else{
       utils.internalServerError(res, error);
     }
@@ -76,20 +74,23 @@ function handle(req, res, db){
 
   function contractSubmitted(error, contract){ //callback
     if(!error){
-      console.log(contract);
-      var message = 'Contract transaction sent. Mining can take up to 30 seconds. Query /checkMined with supplied transaction_hash to determine when contract has been mined / is active.'
-      var response = {
-        success : true,
-        message : message,
-        transaction_hash : contract.transactionHash
+      //this callback gets called twice - once when the contract is submitted and again when its mined.
+      //this if-statement makes sure it only sends a response the first time it's called.
+      if(!contract.address){ 
+        console.log(contract);
+        var message = 'Contract transaction sent. Mining can take up to 30 seconds. Query /checkMined with supplied transaction_hash to determine when contract has been mined / is active.'
+        var response = {
+          success : true,
+          message : message,
+          transaction_hash : contract.transactionHash
+        }
+        console.log('writing response!')
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.write(JSON.stringify(response));
+        res.end();
+
+        console.log("Contract transaction sent: TransactionHash: " + contract.transactionHash + " waiting to be mined...");
       }
-      console.log('writing response!')
-      res.writeHead(200, {'Content-Type': 'application/json'});
-      res.write(JSON.stringify(response));
-      res.end();
-
-      console.log("Contract transaction sent: TransactionHash: " + contract.transactionHash + " waiting to be mined...");
-
       // utils.topUp(params['issuer_addr'], console.log);
     }else{
       utils.internalServerError(res, error);
