@@ -5,6 +5,7 @@
 var web3 = require('web3-custom').web3;
 var http = require('http');
 var url = require("url");
+var https = require('https')
 
 // var mongoose = require('mongoose');
 // mongoose.connect('127.0.0.1:27017');
