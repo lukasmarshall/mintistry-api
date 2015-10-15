@@ -22,8 +22,14 @@ console.log('Ethereum Connected');
 
 var port = 1337;
 var ip_address = '119.81.254.126';
+
+var options = {
+  key: fs.readFileSync('keys/key.pem'),
+  cert: fs.readFileSync('keys/cert.pem')
+};
+
 //start node server
-http.createServer(function (req, res) {
+http.createServer(options, function (req, res) {
   handleRequest(req, res)
   //print the request to the console.
   console.log(req.url);

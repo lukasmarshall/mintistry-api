@@ -9,7 +9,7 @@ function handle(req, res){
   //writes response
   var isConnected = web3.isConnected();
   var coinbase = web3.eth.coinbase;
-  var balance = web3.eth.getBalance('0x9d7c05bb8fecd64c78805d1353ec99d748442674');
+  var balance = web3.eth.getBalance(coinbase);
   var hashed_hello = web3.sha3('hello');
   var hello_to_hex = web3.toHex('hello');
   var hex_back_to_ascii = web3.toAscii(hello_to_hex);
