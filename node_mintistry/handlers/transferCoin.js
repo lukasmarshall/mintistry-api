@@ -43,10 +43,11 @@ function handle(req, res){
   function generateResponse(error, success){
     if(!error){
       console.log('callback returned: '+success);
-      if(success == 1){
+      if(success){
         response = {
           success : true,
           message : "Successfully transferred coin.",
+          transaction_hash: success,
           amount: parseInt(params['amount']),
           sender_addr : params['account_addr'],
           receiver_addr : params['receiver_addr'],
@@ -56,6 +57,7 @@ function handle(req, res){
         response = {
           success : false,
           message : "Could not transfer coin. Ensure account balances are sufficient.",
+          transaction_hash: success,
           amount: parseInt(params['amount']),
           sender_addr : params['account_addr'],
           receiver_addr : params['receiver_addr'],
