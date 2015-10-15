@@ -33,7 +33,7 @@ contract customCoin {
   }
 
   /*Allows the issuer to create new coins in an individual's account. */
-  function issueCoin(address to_address, uint amount) returns(bool success) {
+  function issueCoin(address to_address, uint amount) returns(uint success) {
     if (msg.sender != issuer) return 0;
     balance[to_address] += amount;
     CoinIssue(msg.sender, to_address, amount);
@@ -41,7 +41,7 @@ contract customCoin {
   }
 
   /*Allows the coin to be decoupled from any mintistry-linked addresses.*/
-  function changeIssuer(address newIssuer) returns(bool success){
+  function changeIssuer(address newIssuer) returns(uint success){
     if(msg.sender != issuer) return 0;
     issuer = newIssuer;
     return 1;
