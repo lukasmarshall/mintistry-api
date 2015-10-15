@@ -39,6 +39,7 @@ function handle(req, res, db){
   }
 
   function getContract(error){
+    console.log('getContract()');
     if(!error){
       contractFactory.getContract(deployContract);
     }else{
@@ -48,6 +49,7 @@ function handle(req, res, db){
 
 
   function deployContract(error, contractCompiled){
+    console.log('deployContract()');
     if(!error){
       //define the contract object
       console.log(contractCompiled);
@@ -74,6 +76,7 @@ function handle(req, res, db){
   }
 
   function contractSubmitted(error, contract){ //callback
+    console.log('contractSubmitted()');
     if(!error){
       var message = 'Contract transaction sent. Mining can take up to 30 seconds. Query /checkMined with supplied transaction_hash to determine when contract has been mined / is active.'
       var response = {
@@ -81,7 +84,7 @@ function handle(req, res, db){
         message : message,
         transaction_hash : contract.transactionHash
       }
-
+      console.log('writing response!')
       res.writeHead(200, {'Content-Type': 'application/json'});
       res.write(JSON.stringify(response));
       res.end();
