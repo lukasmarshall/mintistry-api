@@ -31,11 +31,18 @@ var options = {
 };
 
 //start node server
-http.createServer(options, function (req, res) {
+// http.createServer(function (req, res) {
+//   handleRequest(req, res)
+//   //print the request to the console.
+//   console.log(req.url);
+// }).listen(port, ip_address);
+
+https.createServer(options, function (req, res) {
   handleRequest(req, res)
   //print the request to the console.
   console.log(req.url);
 }).listen(port, ip_address);
+
 
 
 console.log('Server running at '+ip_address+'at port '+port);
