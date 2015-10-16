@@ -37,7 +37,7 @@ function unprocessableEntityError(res, message){
 function internalServerError(res, message){
     var response = {
       success : false,
-      message : 'Internal Server Error: '+ message
+      message : 'Error: '+ message
     }
     res.writeHead(500, {'Content-Type': 'application/json'});
     res.write(JSON.stringify(response));
