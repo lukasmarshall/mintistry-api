@@ -26,16 +26,22 @@ function handle(req, res, db){
     params = parameters;
     if(!params['api_key'] || !params['issuer_addr'] || !params['starting_amount'] || !params['coin_name']){ //make sure the corract parameters are present
       utils.unprocessableEntityError(res, "Required parameters not supplied. Requires api_key, issuer_addr, starting_amount, coin_name.");
-    } else if(!utils.verify_key(params['api_key'])){ //verify the api key
-      utils.unprocessableEntityError(res, "API Key is invalid.");
     }else{
-      start();
+      utils.verify_key(params['api_key'], start);
     }
   }
 
-  function start(){
-    var duration = 300; //unlock the account for 300 seconds.
-    web3.personal.unlockAccount(web3.eth.coinbase, customAuth.getCoinbasePassword(), duration, getContract);
+  function start(error, verified){
+    if(!error){
+      if(verified){
+        var duration = 300; //unlock the account for 300 seconds.
+        web3.personal.unlockAccount(web3.eth.coinbase, customAuth.getCoinbasePassword(), duration, getContract);
+      }else{
+        utils.unprocessableEntityError(res, "API Key is invalid.");
+      }
+    }else{
+      utils.internalServerError(res, error);
+    }
   }
 
   function getContract(error){

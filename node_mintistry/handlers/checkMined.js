@@ -25,15 +25,22 @@ function handle(req, res, db){
       utils.unprocessableEntityError(res, error);
     }if(!params['api_key'] || !params['transaction_hash']){ //make sure the corract parameters are present
       utils.unprocessableEntityError(res, "Required parameters not supplied. Requires api_key, transaction_hash.");
-    } else if(!utils.verify_key(params['api_key'])){ //verify the api key
-      utils.unprocessableEntityError(res, "API Key is invalid.");
     }else{
-      start();
+      utils.verify_key(params['api_key'], start);
     }
   }
 
-  function start(){
-      web3.eth.getTransactionReceipt(params['transaction_hash'], checkMined);
+
+  function start(error, verified){
+    if(!error){
+      if(verified){
+        web3.eth.getTransactionReceipt(params['transaction_hash'], checkMined);
+      }else{
+        utils.unprocessableEntityError(res, "API Key is invalid.");
+      }
+    }else{
+      utils.internalServerError(res, error);
+    }
   }
 
   function checkMined(error, transactionReceipt){

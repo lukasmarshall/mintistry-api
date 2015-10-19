@@ -6,6 +6,7 @@ var formidable = require('formidable')
 var contractFactory = require('contractFactory');
 var customAuth = require('customAuth')
 
+
 function getParams(req, callback){
   var error = null;
   var params = null;
@@ -44,8 +45,21 @@ function internalServerError(res, message){
     res.end('\n');
 }
 
-function verify_key(api_key){
-  return true;
+function verify_key(api_key, callback){
+  // var https = require('https');
+  var unirest = require('unirest');
+
+  unirest.post('http://mintistry.appspot.com/verifyKey')
+  .header('Accept', 'application/json')
+  .send({ "api_key": api_key })
+  .end(function (response) {
+    console.log(response.body);
+    var data = JSON.parse(response.body);
+    console.log(data)
+    
+    callback(null, data['verified']);
+  });
+ 
 }
 
 function topUp(address, callback){

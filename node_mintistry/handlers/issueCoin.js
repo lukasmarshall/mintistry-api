@@ -17,16 +17,22 @@ function handle(req, res){
       utils.unprocessableEntityError(req, error);
     }else if(!params['issuer_addr'] || !params['issuer_password'] || !params['coin_addr'] || !params['receiver_addr'] || !params['api_key'] || !params['amount']){ //make sure the corract parameters are present
       utils.unprocessableEntityError(res, "Required parameters not supplied. Requires issuer_addr, issuer_password, receiver_addr, coin_addr, api_key, amount.")
-    } else if(!utils.verify_key(params['api_key'])){ //verify the api key
-      utils.unprocessableEntityError(res, "API Key is invalid.")
     }else{
-      start();
+      utils.verify_key(params['api_key'], start);
     }
   }
 
-  function start(){
-    contractFactory.getAbi(issueCoin);
-    
+
+  function start(error, verified){
+    if(!error){
+      if(verified){
+        contractFactory.getAbi(issueCoin);
+      }else{
+        utils.unprocessableEntityError(res, "API Key is invalid.");
+      }
+    }else{
+      utils.internalServerError(res, error);
+    }
   }
 
   function issueCoin(error, abi){

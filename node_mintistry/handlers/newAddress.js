@@ -21,15 +21,21 @@ function handle(req, res, db){
       utils.unprocessableEntityError(res, error);
     }if(!params['api_key'] || !params['password']){ //make sure the correct parameters are present
       utils.unprocessableEntityError(res, "Required parameters not supplied. Requires api_key, password.")
-    } else if(!utils.verify_key(params['api_key'])){ //verify the api key
-      utils.unprocessableEntityError(res, "API Key is invalid.")
-    }else{
-      start();
+    } else{
+      utils.verify_key(params['api_key'], start);
     }   
   }
-  
-  function start(){
-    web3.personal.newAccount(params['password'], accountCreated);
+
+  function start(error, verified){
+    if(!error){
+      if(verified){
+        web3.personal.newAccount(params['password'], accountCreated);
+      }else{
+        utils.unprocessableEntityError(res, "API Key is invalid.");
+      }
+    }else{
+      utils.internalServerError(res, error);
+    }
   }
 
   function accountCreated(error, address){ 

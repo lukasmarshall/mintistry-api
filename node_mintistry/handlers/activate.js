@@ -17,15 +17,21 @@ function handle(req, res){
       utils.unprocessableEntityError(req, error);
     }else if(!params['account_addr'] || !params['api_key']){ //make sure the corract parameters are present
       utils.unprocessableEntityError(res, "Required parameters not supplied. Requires account_addr, api_key.")
-    } else if(!utils.verify_key(params['api_key'])){ //verify the api key
-      utils.unprocessableEntityError(res, "API Key is invalid.")
     }else{
-      start();
+      utils.verify_key(params['api_key'], start)
     }
   }
 
-  function start(){
-      utils.topUp(params['account_addr'], generateResponse);
+  function start(error, verified){
+    if(!error){
+      if(verified){
+        utils.topUp(params['account_addr'], generateResponse);
+      }else{
+        utils.unprocessableEntityError(res, "API Key is invalid.");
+      }
+    }else{
+      utils.internalServerError(res, error);
+    }
   }
 
   function generateResponse(error, hash){
