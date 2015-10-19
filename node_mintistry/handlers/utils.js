@@ -53,11 +53,13 @@ function verify_key(api_key, callback){
   .header('Accept', 'application/json')
   .send({ "api_key": api_key })
   .end(function (response) {
-    console.log(response.body);
     var data = JSON.parse(response.body);
-    console.log(data)
+    if(data){
+      callback(null, data['verified']);
+    }else{
+      callback('Could not read API key in database. Try again in a moment.', false);
+    }
     
-    callback(null, data['verified']);
   });
  
 }
