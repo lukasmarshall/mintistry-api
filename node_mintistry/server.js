@@ -5,8 +5,9 @@
 var web3 = require('web3-custom').web3;
 var http = require('http');
 var url = require("url");
-// var https = require('https')
-// var fs = require('fs')
+var config = require('./config.js').params;
+var https = require('https')
+var fs = require('fs')
 
 // var mongoose = require('mongoose');
 // mongoose.connect('127.0.0.1:27017');
@@ -19,37 +20,35 @@ var db;
 // }); //
 
 //set up communication with geth instance
-result = web3.setProvider(new web3.providers.HttpProvider('http://127.0.0.1:8545'));
+result = web3.setProvider(new web3.providers.HttpProvider(config.geth_url));
 console.log('Ethereum Connected');
 
-var port = 1337;
-// var ip_address = '119.81.254.126';
-var ip_address = '127.0.0.1'
+if(config.https){
+  // HTTPS STUFF
+  var options = {
+    key: fs.readFileSync(config.ssl_key_location),
+    cert: fs.readFileSync(config.ssl_cert_location)
+  };
+
+  https.createServer(options, function (req, res) {
+    handleRequest(req, res)
+    console.log(req.url);
+  }).listen(config.port, config.ip_address);
+
+}else{
+  //start node server
+  http.createServer(function (req, res) {
+    handleRequest(req, res)
+    console.log(req.url);
+  }).listen(config.port, config.ip_address);
+}
 
 
 
-//start node server
-http.createServer(function (req, res) {
-  handleRequest(req, res)
-  //print the request to the console.
-  console.log(req.url);
-}).listen(port, ip_address);
-
-//HTTPS STUFF
-// var options = {
-//   key: fs.readFileSync('keys/key.pem'),
-//   cert: fs.readFileSync('keys/cert.pem')
-// };
-
-// https.createServer(options, function (req, res) {
-//   handleRequest(req, res)
-//   //print the request to the console.
-//   console.log(req.url);
-// }).listen(port, ip_address);
 
 
 
-console.log('Server running at '+ip_address+' at port '+port);
+console.log('Server running at '+config.ip_address+' at port '+config.port);
 
 function handleRequest(req, res){
   //gets request params and converts them to a json object..
