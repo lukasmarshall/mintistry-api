@@ -25,6 +25,7 @@ console.log('Ethereum Connected');
 
 if(config.https){
   // HTTPS STUFF
+  console.log('HTTPS Mode');
   var options = {
     key: fs.readFileSync(config.ssl_key_location),
     cert: fs.readFileSync(config.ssl_cert_location)
@@ -36,6 +37,7 @@ if(config.https){
   }).listen(config.port, config.ip_address);
 
 }else{
+  console.log('HTTP Mode');
   //start node server
   http.createServer(function (req, res) {
     handleRequest(req, res)
