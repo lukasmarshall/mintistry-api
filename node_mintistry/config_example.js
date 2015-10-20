@@ -4,5 +4,5 @@ module.exports.params={
 	geth_url: "http://127.0.0.1:8545",
 	https: false,
 	ssl_key_location:'keys/key.pem',
-	ssle_cert_location:'keys/cert.pem',
+	ssl_cert_location:'keys/cert.pem',
 }
