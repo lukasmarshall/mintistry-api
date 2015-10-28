@@ -1142,3 +1142,5 @@ node_mintistry/.node-xmlhttprequest-sync-16588
 planning.txt
 site_outline.txt
 node_mintistry/config.js
+node_mintistry/contracts/*
+node_mintistry/contracts/test_contract.sol
