@@ -45,7 +45,7 @@ function handle(req, res){
       from : params['sender_addr'],
     }
 
-    contract.send.sendTransaction(params['receiver_addr'], parseInt(params['amount']), params['sender_addr'] ,transaction, generateResponse);
+    contract.transfer.sendTransaction(params['receiver_addr'], parseInt(params['amount']), transaction, generateResponse);
   }
 
   function generateResponse(error, success){
