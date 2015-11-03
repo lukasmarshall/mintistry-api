@@ -1144,3 +1144,7 @@ site_outline.txt
 node_mintistry/config.js
 node_mintistry/contracts/*
 node_mintistry/contracts/test_contract.sol
+
+.DS_Store
+
+node_mintistry/.DS_Store
