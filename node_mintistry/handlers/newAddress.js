@@ -20,8 +20,6 @@ function handle(req, res, db){
     if(error){
       utils.unprocessableEntityError(res, error);
     }if(!params['api_key'] || !params['password']){ //make sure the correct parameters are present
-      console.log('Unprocessable Entity - params: ');
-      console.log(params);
       utils.unprocessableEntityError(res, "Required parameters not supplied. Requires api_key, password.")
     } else{
       utils.verify_key(params['api_key'], start);
