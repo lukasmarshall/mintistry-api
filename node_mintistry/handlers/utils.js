@@ -46,22 +46,21 @@ function internalServerError(res, message){
 }
 
 function verify_key(api_key, callback){
-  var unirest = require('unirest');
-  console.log(api_key);
-  unirest.post('http://mintistry.appspot.com/verifyKey')
-  .header('Accept', 'application/json')
-  .send({ "api_key": api_key })
-  .end(function (response) {
-    console.log(response.body);
-    var data = JSON.parse(response.body);
-    if(data){
-      callback(null, data['verified']);
-    }else{
-      callback('Could not read API key in database. Try again in a moment.', false);
-    }
-    
-  });
- 
+  callback(null, true);
+
+  // var unirest = require('unirest');
+  // unirest.post('http://mintistry.appspot.com/verifyKey')
+  // .header('Accept', 'application/json')
+  // .send({ "api_key": api_key })
+  // .end(function (response) {
+  //   var data = JSON.parse(response.body);
+  //   if(data){
+  //     callback(null, data['verified']);
+  //   }else{
+  //     callback('Could not read API key in database. Try again in a moment.', false);
+  //   }
+  // });
+
 }
 
 function topUp(address, callback){
