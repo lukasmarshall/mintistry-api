@@ -6,11 +6,10 @@ info:
 host: api.mintistry.com
 schemes:
   - https
-basePath: /
 produces:
   - application/json
 paths:
-  newAddress:
+  /newAddress:
     post:
       summary: New Address
       description: >
@@ -33,8 +32,6 @@ paths:
           required: true
           type: string
           format: string
-      tags:
-        - Address
       responses:
         '200':
           description: 'JSON object with details of response.'
@@ -48,7 +45,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/InternalServerError'
-  newCurrency:
+  /newCurrency:
     post:
       summary: New Currency
       description: "Create a new cryptocurrency by calling this endpoint. Given a name, a starting amount and an issuer address, a new cryptocurrency contract will be generated and sent to the ethereum blockchain for mining. Because mining takes some time, you will receive a transaction hash, which you can later use (usually about a maximum of 30 seconds later) to verify the contract has been mined retrieve the address of the cryptocurrency (ie. where it lives on the blockchain). You do this by visiting the /checkMined endpoint."
@@ -90,7 +87,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/InternalServerError'
-  checkMined:
+  /checkMined:
     post:
       summary: Check Mined
       description: "After creating a transaction on the blockchain (for most users this is creating a new currency) you can check if it has been mined yet by using the /chackMined endpoint. Simply supply a transaction hash and this endpoint returns the ethereum address of the newly mined contract."
@@ -133,7 +130,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/InternalServerError'
-  activate:
+  /activate:
     post:
       summary: Activate Ethereum Account
       description: "In order to send or receive cryptocurrency on the ethereum blockchain, users ust pay a tiny fee in the form of a cryptocurrency called ether. Mintistry takes care of all this background stuff for you, pays your fees and ensures that your accounts are topped up with ether after every transaction. When you activate an account, Mintistry simply places enough ether in that account to allow it to send a transaction. Subsequently, after every transaction, Mintistry will continue to top up that account with enough ether for 1-2 transactions per block (approx. 20 seconds)."
@@ -163,7 +160,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/InternalServerError'
-  topUp:
+  /topUp:
     post:
       summary: Top Up Ethereum Account
       description: "Before creating a transaction, an ethereum account must first be 'topped up' to make sure there is enough ether in the account to make the transaction. Once an account has been topped up once, Mintistry will automatically keep it 'topped up' so that it contains enough ether to send 1-2 transactions per block (30 sec-1 min). If more transactions per block are required, ethereum accounts can be manually topped up or higher top-up packages can be enabled."
@@ -193,7 +190,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/InternalServerError'
-  transferCoin:
+  /transferCoin:
     post:
       summary: Transfer Coin
       description: "Creates a transfer of a custom cryptocurrency from one user to another, as long as the currency conforms to the metacoin API and the accounts are mintistry managed wallets. For example, after creating a new currency with the /createCurrency endpoint and then verifying it's 'mined' status with the /checkMined endpoint, you may want to transfer some of your newly minted coins to another ethereum account."
@@ -241,7 +238,7 @@ paths:
           description: Internal Server Error
           schema:
             $ref: '#/definitions/InternalServerError'
-  getBalance:
+  /getBalance:
     post:
       summary: Get Balance
       description: "Returns the balance of a given account in a given coin. Allows you to check the balance of any account in a custom cryptocurrency, provided it complies with the metacoin API. (all Mintistry coins comply with the metacoin standard.)"
