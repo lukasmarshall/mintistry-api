@@ -13,6 +13,8 @@ function getParams(req, callback){
   if(req.method.toLowerCase() == 'post'){
     //parsing POST request parameters
     var form = formidable.IncomingForm();
+    console.log('request: ');
+    console.log(req);
     form.parse(req, function formParsed(err, fields, files){
       callback(err, fields);
     });
