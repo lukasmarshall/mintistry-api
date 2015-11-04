@@ -37,7 +37,7 @@ function handle(req, res){
 
   function getBalance(error, abi){
     if(!error){
-      var bal = web3.eth.contract(abi).at(params['coin_addr']).balance(params['account_addr']);
+      var bal = web3.eth.contract(abi).at(params['coin_addr']).bal(params['account_addr']);
       var name = web3.eth.contract(abi).at(params['coin_addr']).name();
       var issuer = web3.eth.contract(abi).at(params['coin_addr']).issuer();
       response = {
