@@ -8,6 +8,8 @@ schemes:
   - https
 produces:
   - application/json
+consumes:
+  - application/x-www-form-urlencoded
 paths:
   /newAddress:
     post:
