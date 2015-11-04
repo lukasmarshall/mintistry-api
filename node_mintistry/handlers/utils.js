@@ -10,8 +10,8 @@ var customAuth = require('customAuth')
 function getParams(req, callback){
   var error = null;
   var params = null;
+  console.log(req);
   if(req.method.toLowerCase() == 'post'){
-    console.log(req.body);
     //parsing POST request parameters
     var form = formidable.IncomingForm();
     form.parse(req, function formParsed(err, fields, files){
