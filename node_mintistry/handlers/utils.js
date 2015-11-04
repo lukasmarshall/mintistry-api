@@ -47,7 +47,7 @@ function internalServerError(res, message){
 
 function verify_key(api_key, callback){
   var unirest = require('unirest');
-  console.log(response.body);
+  
   unirest.post('http://mintistry.appspot.com/verifyKey')
   .header('Accept', 'application/json')
   .send({ "api_key": api_key })
