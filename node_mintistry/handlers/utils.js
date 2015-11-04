@@ -13,8 +13,6 @@ function getParams(req, callback){
   if(req.method.toLowerCase() == 'post'){
     //parsing POST request parameters
     var form = formidable.IncomingForm();
-    console.log('request: ');
-    console.log(req);
     form.parse(req, function formParsed(err, fields, files){
       callback(err, fields);
     });
@@ -48,9 +46,7 @@ function internalServerError(res, message){
 }
 
 function verify_key(api_key, callback){
-  // var https = require('https');
   var unirest = require('unirest');
-
   unirest.post('http://mintistry.appspot.com/verifyKey')
   .header('Accept', 'application/json')
   .send({ "api_key": api_key })
