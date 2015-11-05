@@ -55,7 +55,7 @@ function handle(req, res, db){
   function deployContract(error, contractCompiled){
     if(!error){
       //define the contract object
-      console.log(contractCompiled);
+      // console.log(contractCompiled);
       var supply = parseInt(params['starting_amount']);
       ContractObject = web3.eth.contract(contractCompiled.customCoin.info.abiDefinition);
       var issuer = params['issuer_addr'];

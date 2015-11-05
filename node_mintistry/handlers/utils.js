@@ -27,23 +27,25 @@ function getParams(req, callback){
 }
 
 function unprocessableEntityError(res, message){
-    var response = {
-      success : false,
-      message : 'Unprocessable Entity Error: '+ message
-    }
-    res.writeHead(422, {'Content-Type': 'application/json'});
-    res.write(JSON.stringify(response));
-    res.end('\n');
+  console.log('Error: '+message);
+  var response = {
+    success : false,
+    message : 'Unprocessable Entity Error: '+ message
+  }
+  res.writeHead(422, {'Content-Type': 'application/json'});
+  res.write(JSON.stringify(response));
+  res.end('\n');
 }
 
 function internalServerError(res, message){
-    var response = {
-      success : false,
-      message : 'Error: '+ message
-    }
-    res.writeHead(500, {'Content-Type': 'application/json'});
-    res.write(JSON.stringify(response));
-    res.end('\n');
+  console.log('Error: '+message);
+  var response = {
+    success : false,
+    message : 'Error: '+ message
+  }
+  res.writeHead(500, {'Content-Type': 'application/json'});
+  res.write(JSON.stringify(response));
+  res.end('\n');
 }
 
 function verify_key(api_key, callback){
