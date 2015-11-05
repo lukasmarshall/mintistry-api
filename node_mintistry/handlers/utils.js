@@ -78,7 +78,7 @@ function topUp(address, callback){
       //value is the fixed cost of the computational steps in processing the transaction function.
 
       var value = 1154400000000000 + 100000000000000;
-      var amount = web3.eth.gasPrice * contract.issueCoin.estimateGas() + value;
+      var amount = web3.eth.gasPrice * contract.transfer.estimateGas() + value;
 
       var transfersPerBlock = 10; //maximum number of transfers we 'gift' per block. 
       amount = amount * transfersPerBlock * 2; // we double because it takes another block to do the ether transfer

@@ -82,7 +82,7 @@ function handle(req, res, db){
       //this callback gets called twice - once when the contract is submitted and again when its mined.
       //this if-statement makes sure it only sends a response the first time it's called.
       if(!contract.address){ 
-        console.log(contract);
+        // console.log(contract);
         var message = 'Contract transaction sent. Mining can take up to 30 seconds. Query /checkMined with supplied transaction_hash to determine when contract has been mined / is active.'
         var response = {
           success : true,
