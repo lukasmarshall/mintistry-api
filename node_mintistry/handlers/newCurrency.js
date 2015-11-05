@@ -60,6 +60,8 @@ function handle(req, res, db){
       ContractObject = web3.eth.contract(contractCompiled.customCoin.info.abiDefinition);
       var issuer = params['issuer_addr'];
       var coinName = params['coin_name'];
+      var requiredGas = web3.eth.estimateGas(contractCompiled);
+      console.log('Estimated Gas: '+requiredGas);
       //create a new instance of the contract object 
       var token = ContractObject.new(
         supply, 
