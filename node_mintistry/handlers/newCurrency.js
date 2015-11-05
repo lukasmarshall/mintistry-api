@@ -68,7 +68,7 @@ function handle(req, res, db){
         {
           from: web3.eth.accounts[0],
           data: contractCompiled.customCoin.code,
-          gas: 1000000
+          gas: 5000000
         },
         contractSubmitted //note that this callback gets called twice - once when it's submitted and again when it's mined.
       );
